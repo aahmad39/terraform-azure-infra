@@ -12,7 +12,7 @@ rg-dev ={
 
 str ={
     str1 = {
-        name                     = "str1"
+        name                     = "str12022"
         resource_group_name      = "rg1"
         location                 = "East US"
         account_tier             = "Standard"
@@ -20,7 +20,7 @@ str ={
     }
 
     str2 = {
-        name                     = "str2"
+        name                     = "str22031"
         resource_group_name      = "rg2"
         location                 = "East US"
         account_tier             = "Standard"
