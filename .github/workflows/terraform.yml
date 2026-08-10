@@ -24,27 +24,32 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./environment
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./environment
 
       - name: Terraform Plan
         if: startsWith(github.ref, 'refs/heads/feature/')
         run: terraform plan -out=tfplan
+        working-directory: ./environment
 
       - name: Upload Plan Artifact
         if: startsWith(github.ref, 'refs/heads/feature/')
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: tfplan
+          path: environment/tfplan
 
       - name: Download Plan Artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/download-artifact@v4
         with:
           name: tfplan
+          path: environment
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
+        working-directory: ./environment
