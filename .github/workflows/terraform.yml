@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
@@ -31,7 +31,6 @@ jobs:
         working-directory: ./environment
 
       - name: Terraform Plan
-        if: startsWith(github.ref, 'refs/heads/feature/')
         run: terraform plan -out=tfplan
         working-directory: ./environment
 
@@ -40,16 +39,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: ./environment/tfplan   # ✅ Correct path
-
-      - name: Download Plan Artifact
-        if: github.ref == 'refs/heads/main'
-        uses: actions/download-artifact@v4
-        with:
-          name: tfplan
-          path: ./environment          # ✅ Correct folder
+          path: ./environment/tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
         working-directory: ./environment
+
