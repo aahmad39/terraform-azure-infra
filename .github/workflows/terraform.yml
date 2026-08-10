@@ -14,7 +14,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      # Node 24 is default, no need to force Node 20
 
     steps:
       - name: Checkout repo
@@ -41,14 +40,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: environment/tfplan
+          path: ./environment/tfplan   # ✅ Correct path
 
       - name: Download Plan Artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: environment
+          path: ./environment          # ✅ Correct folder
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
