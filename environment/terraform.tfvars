@@ -8,10 +8,10 @@ rg-dev ={
         name     = "rg2" 
         location = "East US"
     }
-    rg3 = {
-        name     = "rg3" 
-        location = "East US"
-    }
+    # rg3 = {
+    #     name     = "rg3" 
+    #     location = "East US"
+    # }
 }
 
 str ={
